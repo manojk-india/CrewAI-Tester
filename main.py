@@ -3,10 +3,15 @@ from crewai import Crew,Process
 from textwrap import dedent
 from agents import TestAgents
 from tasks import TestTasks
-from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 
 from dotenv import load_dotenv
 load_dotenv()
+
+def save_to_file(self, filename, content):
+        with open(filename, 'a') as file:
+            file.write(content + '\n')
+
 
 
 print("## Welcome to Crew AI Template")
@@ -16,10 +21,10 @@ api_doc = input(dedent("""Enter the documentation of the above api's representin
 acceptance_criteria= input(dedent("""Enter the test case to test clearly in plain english   """))
 
 
-OpenAIGPT35 = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.7,
-                                      verbose=True,
-                                      api_key=os.getenv('OPENAI_API_KEY'))
-
+genai = ChatGoogleGenerativeAI(model="gemini-1.5-flash",
+                           verbose=True,
+                           temperature=0.5,
+                           google_api_key=os.getenv("GOOGLE_API_KEY"))
 #declaring the agents
 agents = TestAgents()
 tasks = TestTasks()
@@ -47,8 +52,9 @@ crew = Crew(
             agents=[feature_agent, stepdefinition_agent],
             tasks=[generate_feature, generate_stepdefinitions],
             verbose=True,
-            process=Process.hierarchical,
-            manager_llm=OpenAIGPT35,
+            process=Process.sequential,
+            manager_llm=genai,
+            output_log_file=True,
         )
 
 results=crew.kickoff()

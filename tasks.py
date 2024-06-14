@@ -41,6 +41,9 @@ Key Steps for Task Creation:
       '''), agent=agent)
 
 """
+def save_to_file(self, filename, content):
+        with open(filename, 'a') as file:
+            file.write(content + '\n')
 
 class TestTasks:
     def __tip_section(self):
@@ -75,6 +78,7 @@ class TestTasks:
 
             """,
             agent=agent,
+            output_file='feature.md',
         )
 
     def generate_stepdefinitions(self, agent,api,api_doc,feature_file_content):
@@ -132,4 +136,5 @@ class TestTasks:
             """,
             agent=agent,
             context=feature_file_content,
+            output_file='stepdefinition.md',
         )

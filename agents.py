@@ -1,7 +1,6 @@
 from crewai import Agent
 from textwrap import dedent
-from langchain.llms import OpenAI, Ollama
-from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 import os
 
 
@@ -40,9 +39,10 @@ Notes:
 
 class TestAgents:
     def __init__(self):
-        self.OpenAIGPT35 = ChatOpenAI(model_name="gpt-3.5-turbo", temperature=0.7,
-                                      verbose=True,
-                                      api_key=os.getenv('OPENAI_API_KEY'))
+        self.genai = ChatGoogleGenerativeAI(model="gemini-1.5-flash",
+                           verbose=True,
+                           temperature=0.5,
+                           google_api_key=os.getenv("GOOGLE_API_KEY"))
 
     def feature_generator(self):
         return Agent(
@@ -59,7 +59,8 @@ class TestAgents:
             allow_delegation=True,
             verbose=True,
             max_iter=20,
-            llm=self.OpenAIGPT35,
+            llm=self.genai,
+            output="op.txt",
         )
     
     def step_def_generator(self):
@@ -74,6 +75,7 @@ class TestAgents:
             allow_delegation=True,
             verbose=True,
             max_iter=20,
-            llm=self.OpenAIGPT35,
+            llm=self.genai,
+            output="op.txt"
         )
    
