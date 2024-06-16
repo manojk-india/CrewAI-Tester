@@ -55,12 +55,11 @@ class TestAgents:
             goal=dedent(f"""
                         provide the content of the feature file in gherkin language 
                         when given the documentation of the api and the acceptance criteria for the test case"""),
-            # tools=[tool_1, tool_2],
+
             allow_delegation=True,
             verbose=True,
             max_iter=20,
             llm=self.genai,
-            output="op.txt",
         )
     
     def step_def_generator(self):
@@ -71,11 +70,9 @@ class TestAgents:
                             file(gherkin language)  """),
             goal=dedent(f"""
                         provide the content of the stepdefinition file in java language"""),
-            # tools=[tool_1, tool_2],
             allow_delegation=True,
             verbose=True,
             max_iter=20,
             llm=self.genai,
-            output="op.txt"
         )
    

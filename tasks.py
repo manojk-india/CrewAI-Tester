@@ -78,7 +78,7 @@ class TestTasks:
 
             """,
             agent=agent,
-            output_file='feature.md',
+            outputs=['feature_file_content'],
         )
 
     def generate_stepdefinitions(self, agent,api,api_doc,feature_file_content):
@@ -136,5 +136,5 @@ class TestTasks:
             """,
             agent=agent,
             context=feature_file_content,
-            output_file='stepdefinition.md',
+            outputs=['stepdefinition_file_content'],
         )

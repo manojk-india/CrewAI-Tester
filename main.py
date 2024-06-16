@@ -8,9 +8,9 @@ from langchain_google_genai import ChatGoogleGenerativeAI
 from dotenv import load_dotenv
 load_dotenv()
 
-def save_to_file(self, filename, content):
-        with open(filename, 'a') as file:
-            file.write(content + '\n')
+def save_to_file(filename, content):
+    with open(filename, 'w') as file:
+        file.write(content)
 
 
 
@@ -54,10 +54,15 @@ crew = Crew(
             verbose=True,
             process=Process.sequential,
             manager_llm=genai,
-            output_log_file=True,
         )
 
 results=crew.kickoff()
 
 print("crew worked results are .....")
 print(results)
+
+
+# Extracting results
+save_to_file("stepdefinition.java",results)
+save_to_file("feature.feature",generate_feature)
+
