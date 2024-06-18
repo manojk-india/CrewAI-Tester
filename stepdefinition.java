@@ -1,37 +1,56 @@
-```java
-package stepdefinitions;
+```xml
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <groupId>com.example</groupId>
+  <artifactId>cucumber-api-test</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
 
-import io.cucumber.java.en.*;
-import io.restassured.RestAssured;
-import io.restassured.response.Response;
-import io.restassured.specification.RequestSpecification;
-import static org.junit.Assert.*;
+  <name>cucumber-api-test</name>
+  <url>http://maven.apache.org</url>
 
-public class Products {
-    private Response response;
-    private RequestSpecification httpRequest;
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+  </properties>
 
-    @Given("I have the base URL of the product API")
-    public void i_have_the_base_url_of_the_product_api() {
-        RestAssured.baseURI = "https://fakestoreapi.com/";
-    }
+  <dependencies>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-java</artifactId>
+      <version>7.12.0</version>
+    </dependency>
+    <dependency>
+      <groupId>io.cucumber</groupId>
+      <artifactId>cucumber-junit</artifactId>
+      <version>7.12.0</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>io.rest-assured</groupId>
+      <artifactId>rest-assured</artifactId>
+      <version>5.3.1</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.13.2</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.hamcrest</groupId>
+      <artifactId>hamcrest-all</artifactId>
+      <version>1.3</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 
-    @When("I send a GET request to the {string} endpoint")
-    public void i_send_a_get_request_to_the_endpoint(String endpoint) {
-        httpRequest = RestAssured.given();
-        response = httpRequest.get(endpoint);
-    }
-
-    @Then("I should receive a response with status code {int}")
-    public void i_should_receive_a_response_with_status_code(Integer statusCode) {
-        assertEquals(statusCode.intValue(), response.getStatusCode());
-    }
-
-    @Then("the response should contain a list of products")
-    public void the_response_should_contain_a_list_of_products() {
-        String responseBody = response.getBody().asString();
-        assertTrue(responseBody.contains("id"));  // Assuming the response contains an "id" field for products
-        assertTrue(responseBody.contains("title"));  // Assuming the response contains a "title" field for products
-    }
-}
-```
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3

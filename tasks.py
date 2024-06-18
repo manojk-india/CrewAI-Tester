@@ -64,19 +64,6 @@ class TestTasks:
             **Note**: {self.__tip_section()}
             """
             ),
-            expected_output=""" 
-            Feature: Get all products from the API
-            As a user
-            I want to retrieve a list of products from the API
-            So that I can view the available products
-
-            Scenario: Verify the GET API for the products
-                Given I have the base URL of the product API
-                When I send a GET request to the "products" endpoint
-                Then I should receive a response with status code 200
-                And the response should contain a list of products
-
-            """,
             agent=agent,
             outputs=['feature_file_content'],
         )
@@ -84,8 +71,8 @@ class TestTasks:
     def generate_stepdefinitions(self, agent,api,api_doc,feature_file_content):
         return Task(
             description=dedent(f"""
-            **Task**: [Generate the content of step definition file according to given feature file of java maven project]
-            **Description**: [Generate the content of feature file of java maven project to run a cucumber test case for the given 
+            **Task**: [Generate the content of step definition file named "Products.java" according to given feature file of java maven project]
+            **Description**: [Generate the content of stepdefinitionsfile "Products.java" of java maven project to run a cucumber test case for the given 
             acceptance criteria ]
 
             **Parameters**: 
@@ -97,44 +84,26 @@ class TestTasks:
             **Note**: {self.__tip_section()}
             """
             ),
-            expected_output=""" 
-            package stepdefinitions;
-
-            import io.cucumber.java.en.*;
-            import io.restassured.RestAssured;
-            import io.restassured.response.Response;
-            import io.restassured.specification.RequestSpecification;
-            import static org.junit.Assert.*;
-
-            public class Products {
-                private Response response;
-                private RequestSpecification httpRequest;
-
-                @Given("I have the base URL of the product API")
-                public void i_have_the_base_url_of_the_product_api() {
-                    RestAssured.baseURI = "https://fakestoreapi.com/";
-                }
-
-                @When("I send a GET request to the {string} endpoint")
-                public void i_send_a_get_request_to_the_endpoint(String endpoint) {
-                    httpRequest = RestAssured.given();
-                    response = httpRequest.get(endpoint);
-                }
-
-                @Then("I should receive a response with status code {int}")
-                public void i_should_receive_a_response_with_status_code(Integer statusCode) {
-                    assertEquals(statusCode.intValue(), response.getStatusCode());
-                }
-
-                @Then("the response should contain a list of products")
-                public void the_response_should_contain_a_list_of_products() {
-                    String responseBody = response.getBody().asString();
-                    assertTrue(responseBody.contains("id"));  // Assuming the response contains an "id" field for products
-                    assertTrue(responseBody.contains("title"));  // Assuming the response contains a "title" field for products
-                }
-            }
-            """,
             agent=agent,
             context=feature_file_content,
             outputs=['stepdefinition_file_content'],
         )
+    
+    def generate_pox_xml(self,agent,stepdefinition_file_content):
+         return Task(
+            description=dedent(f"""
+            **Task**: [Generate the content of pom.xml file named "pom.xml" according to given step definition file conten of java maven project]
+            **Description**: [Generate the content of stepdefinitionsfile "Products.java" of java maven project to run a cucumber test case for the given 
+            acceptance criteria ]
+
+            **Parameters**: 
+            - stepdefinitions_file_content:{stepdefinition_file_content}
+
+
+            **Note**: {self.__tip_section()}
+            """
+            ),
+            agent=agent,
+            context=stepdefinition_file_content,
+            outputs=['pom.xml_file_content'],
+         )

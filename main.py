@@ -32,7 +32,7 @@ tasks = TestTasks()
 #setting up the agents
 feature_agent= agents.feature_generator()
 stepdefinition_agent = agents.step_def_generator()
-
+pom_file_agent=agents.pom_file_generator()
 #setting up the tasks 
 generate_feature= tasks.generate_feature(
             feature_agent,
@@ -47,10 +47,15 @@ generate_stepdefinitions = tasks.generate_stepdefinitions(
             [generate_feature],
         )
 
+generate_pox_xml = tasks.generate_pox_xml(
+            pom_file_agent,
+            [generate_stepdefinitions],
+        )
+
 #setting up the crew
 crew = Crew(
-            agents=[feature_agent, stepdefinition_agent],
-            tasks=[generate_feature, generate_stepdefinitions],
+            agents=[feature_agent, stepdefinition_agent,pom_file_agent],
+            tasks=[generate_feature, generate_stepdefinitions,generate_pox_xml],
             verbose=True,
             process=Process.sequential,
             manager_llm=genai,

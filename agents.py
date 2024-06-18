@@ -75,4 +75,18 @@ class TestAgents:
             max_iter=20,
             llm=self.genai,
         )
+    
+    def pom_file_generator(self):
+        return Agent(
+            role=dedent(f"""Expert Java maven pom.xml file generator"""),
+
+            backstory=dedent(f"""An expert in producing the content of spom.xml file in java language for the given stepdefinition file
+                            to solve all the dependency issues  """),
+            goal=dedent(f"""
+                        provide the content of the pom.xml file to resolve dependency for the given stepdefinition file"""),
+            allow_delegation=True,
+            verbose=True,
+            max_iter=20,
+            llm=self.genai,
+        )
    
