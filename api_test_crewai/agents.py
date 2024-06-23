@@ -43,6 +43,23 @@ class TestAgents:
                                             temperature=0.4,
                                             google_api_key=os.getenv("GOOGLE_API_KEY"))
 
+    def api_test_case_generator(self):
+        return Agent(
+            role = dedent(f"""API Testing Scenario generator in Plain English"""),
+
+            backstory = dedent(f""" You are an expert who is experienced in creating scenarios in plain english to test the api for to check its 
+            robustness and whether all of its functionalities are performing well or not."""),
+
+            goal = dedent(f""" Give at least 3 to 4 plain english acceptence criterias or scenarios on which the api can be tested
+            for its robustness"""),
+
+            allow_delegation = True,
+            verbose=True,
+            max_iter=20,
+            llm=self.genai,
+            output="op.txt",
+        )
+
     def feature_generator(self):
         return Agent(
             role=dedent(f"""Gherkin feature file generator expert"""),
