@@ -50,6 +50,24 @@ class TestTasks:
     def __tip_section(self):
         return "If you do your BEST WORK, I'll give you a $10,000 commission!"
 
+    def generate_test_case(self, agent, api_doc, acceptance_criteria):
+        return Task(
+            description = dedent(f"""
+            Task: [Generate the test cases to for the api in plain English]
+            Description: [Generate the test cases which can test the api for various kind of scenarios so that we can test
+            the robustness of the api.
+            
+            **Parameters**: 
+            - api documentation: {api_doc}
+            - acceptance criteria : {acceptance_criteria}
+            ... [Add more parameters as needed.]
+
+            **Note**: {self.__tip_section()}
+            """),
+
+            agent=agent,
+            output_file='test_cases.md',
+        )
     def generate_feature(self, agent, api_doc,acceptance_criteria):
         return Task(
             description=dedent(f"""

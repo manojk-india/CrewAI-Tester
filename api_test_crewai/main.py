@@ -31,10 +31,17 @@ agents = TestAgents()
 tasks = TestTasks()
 
 #setting up the agents
+testcase_agent = agents.api_test_case_generator()
 feature_agent= agents.feature_generator()
 stepdefinition_agent = agents.step_def_generator()
 
-#setting up the tasks 
+#setting up the tasks
+generate_testcases = tasks.generate_test_case(
+            testcase_agent,
+            api_doc,
+            acceptance_criteria
+        )
+
 generate_feature= tasks.generate_feature(
             feature_agent,
             api_doc,
@@ -50,8 +57,8 @@ generate_stepdefinitions = tasks.generate_stepdefinitions(
 
 #setting up the crew
 crew = Crew(
-            agents=[feature_agent, stepdefinition_agent],
-            tasks=[generate_feature, generate_stepdefinitions],
+            agents=[testcase_agent, feature_agent, stepdefinition_agent],
+            tasks=[generate_testcases, generate_feature, generate_stepdefinitions],
             verbose=True,
             process=Process.sequential,
             manager_llm=genai,
