@@ -53,21 +53,37 @@ generate_pox_xml = tasks.generate_pox_xml(
         )
 
 #setting up the crew
-crew = Crew(
-            agents=[feature_agent, stepdefinition_agent,pom_file_agent],
-            tasks=[generate_feature, generate_stepdefinitions,generate_pox_xml],
+crew1 = Crew(
+            agents=[feature_agent],
+            tasks=[generate_feature],
             verbose=True,
             process=Process.sequential,
             manager_llm=genai,
         )
 
-results=crew.kickoff()
+crew2 = Crew(
+            agents=[stepdefinition_agent],
+            tasks=[generate_stepdefinitions],
+            verbose=True,
+            process=Process.sequential,
+            manager_llm=genai,
+        )
 
-print("crew worked results are .....")
-print(results)
+crew3 = Crew(
+            agents=[pom_file_agent],
+            tasks=[generate_pox_xml],
+            verbose=True,
+            process=Process.sequential,
+            manager_llm=genai,
+        )
 
+feature_file_content=crew1.kickoff()
+save_to_file("java-app/src/test/resources/features/create_item.feature",feature_file_content)
 
-# Extracting results
-save_to_file("stepdefinition.java",results)
-save_to_file("feature.feature",generate_feature)
+stepdefinition_file_content=crew2.kickoff()
+save_to_file("java-app/src/test/java/stepdefinitions/Products.java",stepdefinition_file_content)
 
+pom_xml_file_content=crew3.kickoff()
+save_to_file("java-app/pom.xml",pom_xml_file_content)
+
+print("crew process complete and results are generated  .....")

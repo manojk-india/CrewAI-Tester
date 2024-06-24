@@ -48,15 +48,13 @@ class TestAgents:
         return Agent(
             role=dedent(f"""Gherkin feature file generator expert"""),
 
-            backstory=dedent(f"""An expert in gherkin language with full knowledge about the syntax of the gherkin language
-                            and has worked in many projects to convert given english criteria to a gherkin test case content of feature file written in gherkin 
-                            language required for testing an api using cucumber bdd framework in java maven project  """),
+            backstory=dedent(f"""You are an expert in gherkin language with full knowledge about the syntax of the gherkin language
+                            and has worked in many projects to convert given english criteria to a gherkin test case content of feature file 
+                            required for testing an api using cucumber bdd framework in java maven project  """),
 
             goal=dedent(f"""
-                        provide the content of the feature file in gherkin language 
-                        when given the documentation of the api and the acceptance criteria for the test case"""),
-
-            allow_delegation=True,
+                        provide the content of the feature file for the given documentation of the api 
+                        and the acceptance criteria for the test case"""),
             verbose=True,
             max_iter=20,
             llm=self.genai,
@@ -66,11 +64,10 @@ class TestAgents:
         return Agent(
             role=dedent(f"""Expert Java maven step definition file generator"""),
 
-            backstory=dedent(f"""An expert in producing the content of step definition file in java language for the given feature 
-                            file(gherkin language)  """),
+            backstory=dedent(f"""You are an expert in producing the content of step definition file in java language when the feature 
+                            file(gherkin language) is given  """),
             goal=dedent(f"""
-                        provide the content of the stepdefinition file in java language"""),
-            allow_delegation=True,
+                        provide the content of the stepdefinition file in java language accurately with no syntax error"""),
             verbose=True,
             max_iter=20,
             llm=self.genai,
@@ -80,11 +77,11 @@ class TestAgents:
         return Agent(
             role=dedent(f"""Expert Java maven pom.xml file generator"""),
 
-            backstory=dedent(f"""An expert in producing the content of spom.xml file in java language for the given stepdefinition file
-                            to solve all the dependency issues  """),
+            backstory=dedent(f"""You are an expert in producing the content of pom.xml file in java language for the given stepdefinition file
+                            to solve all the dependency issues and you have never missed out to add any dependency in pom.xml file which is 
+                            needed to run the stepdefinition file"""),
             goal=dedent(f"""
-                        provide the content of the pom.xml file to resolve dependency for the given stepdefinition file"""),
-            allow_delegation=True,
+                        provide the content of the pom.xml file to resolve all dependencies for the given stepdefinition file"""),
             verbose=True,
             max_iter=20,
             llm=self.genai,

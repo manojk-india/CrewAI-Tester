@@ -52,9 +52,9 @@ class TestTasks:
     def generate_feature(self, agent, api_doc,acceptance_criteria):
         return Task(
             description=dedent(f"""
-            **Task**: [Generate the content of feature file]
+            **Task**: [Generate the content of feature file ]
             **Description**: [Generate the content of feature file of java maven project to run a cucumber test case for the given 
-            acceptance criteria ]
+            acceptance criteria]
 
             **Parameters**: 
             - api documentation: {api_doc}
@@ -71,9 +71,9 @@ class TestTasks:
     def generate_stepdefinitions(self, agent,api,api_doc,feature_file_content):
         return Task(
             description=dedent(f"""
-            **Task**: [Generate the content of step definition file named "Products.java" according to given feature file of java maven project]
+            **Task**: [Generate the content of step definition file named "Products.java" according to given feature_file_content of java maven project]
             **Description**: [Generate the content of stepdefinitionsfile "Products.java" of java maven project to run a cucumber test case for the given 
-            acceptance criteria ]
+            acceptance criteria and first line use it as package stepdefinitions; ]
 
             **Parameters**: 
             - api : {api}
@@ -105,5 +105,5 @@ class TestTasks:
             ),
             agent=agent,
             context=stepdefinition_file_content,
-            outputs=['pom.xml_file_content'],
-         )
+            outputs=['pom_xml_file_content'],
+        )
