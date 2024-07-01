@@ -93,8 +93,7 @@ class TestTasks:
          return Task(
             description=dedent(f"""
             **Task**: [Generate the content of pom.xml file named "pom.xml" according to given step definition file conten of java maven project]
-            **Description**: [Generate the content of stepdefinitionsfile "Products.java" of java maven project to run a cucumber test case for the given 
-            acceptance criteria ]
+            **Description**: [Generate the content of pom.xml file when the respective stepdefinition java file is given ]
 
             **Parameters**: 
             - stepdefinitions_file_content:{stepdefinition_file_content}
@@ -106,4 +105,97 @@ class TestTasks:
             agent=agent,
             context=stepdefinition_file_content,
             outputs=['pom_xml_file_content'],
+            expected_output="""
+            <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+                <modelVersion>4.0.0</modelVersion>
+
+                <groupId>com.example</groupId>
+                <artifactId>cucumber-bdd</artifactId>
+                <version>1.0-SNAPSHOT</version>
+
+                <properties>
+                    <maven.compiler.source>1.8</maven.compiler.source>
+                    <maven.compiler.target>1.8</maven.compiler.target>
+                    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+                </properties>
+
+                <dependencies>
+                    <!-- Cucumber dependencies -->
+                    <dependency>
+                        <groupId>io.cucumber</groupId>
+                        <artifactId>cucumber-java</artifactId>
+                        <version>6.10.4</version>
+                        <scope>test</scope>
+                    </dependency>
+                    <dependency>
+                        <groupId>io.cucumber</groupId>
+                        <artifactId>cucumber-junit</artifactId>
+                        <version>6.10.4</version>
+                        <scope>test</scope>
+                    </dependency>
+                    
+                    <!-- JUnit dependency -->
+                    <dependency>
+                        <groupId>junit</groupId>
+                        <artifactId>junit</artifactId>
+                        <version>4.13.2</version>
+                        <scope>test</scope>
+                    </dependency>
+                    
+                    <!-- RestAssured dependency -->
+                    <dependency>
+                        <groupId>io.rest-assured</groupId>
+                        <artifactId>rest-assured</artifactId>
+                        <version>4.4.0</version>
+                        <scope>test</scope>
+                    </dependency>
+                </dependencies>
+
+                <build>
+                    <plugins>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-compiler-plugin</artifactId>
+                            <version>3.8.1</version>
+                            <configuration>
+                                <source>1.8</source>
+                                <target>1.8</target>
+                            </configuration>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-surefire-plugin</artifactId>
+                            <version>2.22.2</version>
+                            <configuration>
+                                <includes>
+                                    <include>**/RunCucumberTest.java</include>
+                                </includes>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </build>
+            </project>
+            """,
         )
+    
+    '''def error_check(self,agent,feature_file_content,stepdefinition_file_content):
+        return Task(
+            description=dedent(f"""
+            **Task**: [Generate the content of new stepdefinition file according to given feature file in case there is any error]
+
+            **Parameters**: 
+            - feature_file_content:{feature_file_content}
+            - stepdefinitions_file_content:{stepdefinition_file_content}
+
+
+            **Note**: {self.__tip_section()}
+            """
+            ),
+            agent=agent,
+            outputs=['new_stepdefinition_file_content'],
+         )'''
+    
+    
+    
+

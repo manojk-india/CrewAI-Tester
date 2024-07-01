@@ -43,6 +43,7 @@ class TestAgents:
                            verbose=True,
                            temperature=0.5,
                            google_api_key=os.getenv("GOOGLE_API_KEY"))
+        
 
     def feature_generator(self):
         return Agent(
@@ -56,7 +57,7 @@ class TestAgents:
                         provide the content of the feature file for the given documentation of the api 
                         and the acceptance criteria for the test case"""),
             verbose=True,
-            max_iter=20,
+            max_iter=25,
             llm=self.genai,
         )
     
@@ -86,4 +87,17 @@ class TestAgents:
             max_iter=20,
             llm=self.genai,
         )
+    
+    '''def QA_engineer(self):
+        return Agent(
+            role=dedent(f"""Expert quality assurance software engineer"""),
+
+            backstory=dedent(f"""You are an expert in finding error in code and wont make any mistake in spotting any errors"""),
+            goal=dedent(f"""
+                        Find the errors associated with given stepdefinition file"""),
+            verbose=True,
+            max_iter=24,
+            llm=self.genai,
+        )'''
+
    
