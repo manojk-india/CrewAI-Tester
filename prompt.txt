@@ -3,3 +3,10 @@ http://127.0.0.1:5000
 It has one endpoint items which accepts get requests
 
 when i hit the url of items endpoint i must get 200 response code
+
+--------------------------------------------------------------------------------------- post
+http://127.0.0.1:5000
+
+It has one endpoint that accepts string as an input for post requests
+
+when i hit the url of items endpoint with "interns" body it should give me 201 response code
