@@ -1,0 +1,52 @@
+swagger: '2.0'
+info:
+  title: Sample API
+  description: API documentation for Flask-based API
+  version: '1.0'
+
+paths:
+  '/':
+    get:
+      summary: Endpoint to get home page
+      responses:
+        '200':
+          description: Successful response
+          schema:
+            type: string
+
+  '/items':
+    get:
+      summary: Endpoint to get all items
+      responses:
+        '200':
+          description: A list of items
+          schema:
+            type: array
+            items:
+              type: string
+              example: "item1"
+
+    post:
+      summary: Endpoint to add a new item
+      consumes:
+        - application/json
+      parameters:
+        - in: body
+          name: item
+          description: Item object
+          required: true
+          schema:
+            type: object
+            properties:
+              name:
+                type: string
+                example: "item1"
+      responses:
+        '201':
+          description: Item added successfully
+          schema:
+            type: object
+            properties:
+              message:
+                type: string
+                example: Item added successfully

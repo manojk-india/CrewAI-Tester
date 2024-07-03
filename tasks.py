@@ -61,7 +61,10 @@ class TestTasks:
             - acceptance criteria : {acceptance_criteria}
             ... [Add more parameters as needed.]
 
-            **Note**: {self.__tip_section()}
+            Cautions
+            1. dont use double quotes in the body of given when statements when mentioning endpoints
+            2. pls dont  use double quotes in the body of given when statements when mentioning endpoints
+            3. never ever dont  use double quotes in the body of given when statements when mentioning endpoints
             """
             ),
             agent=agent,

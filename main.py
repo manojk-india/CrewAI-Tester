@@ -47,6 +47,9 @@ stepdefinition_agent = agents.step_def_generator()
 pom_file_agent=agents.pom_file_generator()
 #error_agent=agents.QA_engineer()
 #setting up the tasks 
+
+one_agent=agents.software_engineer()
+
 generate_feature= tasks.generate_feature(
             feature_agent,
             api_doc,
@@ -66,7 +69,7 @@ generate_pox_xml = tasks.generate_pox_xml(
         )
 #setting up the crew
 crew1 = Crew(
-            agents=[feature_agent],
+            agents=[one_agent],
             tasks=[generate_feature],
             verbose=True,
             process=Process.sequential,
@@ -74,14 +77,14 @@ crew1 = Crew(
         )
 
 crew2 = Crew(
-            agents=[stepdefinition_agent],
+            agents=[one_agent],
             tasks=[generate_stepdefinitions],
             verbose=True,
             manager_llm=genai,
         )
 
 crew3 = Crew(
-            agents=[pom_file_agent],
+            agents=[one_agent],
             tasks=[generate_pox_xml],
             verbose=True,
             manager_llm=genai,
