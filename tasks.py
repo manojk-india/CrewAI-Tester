@@ -68,6 +68,7 @@ class TestTasks:
             """
             ),
             agent=agent,
+            expected_output="",
             outputs=['feature_file_content'],
         )
 
@@ -89,6 +90,7 @@ class TestTasks:
             ),
             agent=agent,
             context=feature_file_content,
+            expected_output="",
             outputs=['stepdefinition_file_content'],
         )
     
