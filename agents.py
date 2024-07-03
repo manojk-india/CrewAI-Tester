@@ -100,4 +100,17 @@ class TestAgents:
             llm=self.genai,
         )'''
 
+    def software_engineer(self):
+        return Agent(
+            role=dedent(f"""Expert and experianced java software developer"""),
+
+            backstory=dedent(f"""You are the world best and finest java developer who will write codes with absolutely no errors
+                             and no one is better than you """),
+
+             goal=dedent(f"""
+                        producing accurate code in accordance to the task assigned to you"""),
+            verbose=True,
+            max_iter=20,
+            llm=self.genai,
+        )
    
